@@ -1,6 +1,6 @@
 module "naming" {
-  source  = "Azure/naming/azurerm"
-  suffix = [ var.app_name, var.environment ]
+  source = "Azure/naming/azurerm"
+  suffix = [var.app_name, var.environment]
 }
 
 #-----------------------------------
@@ -35,7 +35,7 @@ module "keyvault" {
   resource_group_name = coalesce(var.resource_group_name, azurerm_resource_group.resource_group.0.name)
 
   key_vault_name = module.naming.key_vault.name
-  location    = var.location
+  location       = var.location
 }
 
 #-----------------------------------
@@ -51,11 +51,11 @@ module "disk_encryption_set" {
 
   count = var.enable_disk_encryption_set ? 1 : 0
 
-  resource_group_name = coalesce(var.resource_group_name, azurerm_resource_group.resource_group.0.name)
-  disk_encryption_set_name = module.naming.disk_encryption_set.name
+  resource_group_name          = coalesce(var.resource_group_name, azurerm_resource_group.resource_group.0.name)
+  disk_encryption_set_name     = module.naming.disk_encryption_set.name
   disk_encryption_set_key_name = "key-${module.naming.disk_encryption_set.name}"
-  location            = var.location
-  key_vault_id        = module.keyvault.key_vault_id
+  location                     = var.location
+  key_vault_id                 = module.keyvault.key_vault_id
 
 }
 
@@ -73,8 +73,8 @@ module "vm" {
   # Resource Group, location, key vault details
   resource_group_name = coalesce(var.resource_group_name, azurerm_resource_group.resource_group.0.name)
 
-  location            = var.location
-  key_vault_id        = module.keyvault.key_vault_id
+  location     = var.location
+  key_vault_id = module.keyvault.key_vault_id
 
   # Network details
   vnet_name           = coalesce(var.vnet_name, azurerm_virtual_network.network-vnet.0.name)

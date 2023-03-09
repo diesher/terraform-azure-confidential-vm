@@ -214,7 +214,7 @@ variable "distribution_name" {
 }
 
 variable "os_disk_storage_account_type" {
-  type = string
+  type        = string
   description = "The Type of Storage Account which should back this the Internal OS Disk. Possible values include Standard_LRS, StandardSSD_LRS and Premium_LRS."
   default     = "StandardSSD_LRS"
 }
